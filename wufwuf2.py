@@ -100,7 +100,7 @@ class Robot:
                     # Kill enemy robot (immediately, always highest pref)
 		    print "Attacking"
                     return ['attack', loc]
-		elif enemy:
+		elif enemy and game['turn'] > 10:
 		    # Enemy at 2 steps away, march!
 		    if compare_orders(loc):
 			continue
@@ -124,4 +124,7 @@ class Robot:
         else:
             # Do best move possible:
 	    print "Moving"
-            return ['move', available_zones.keys()[0]]
+	    if(distance(available_zones.keys()[0], (9,9)) >= (distance(loc, (9,9))) and (distance(loc, (9,9)) < 2)):
+            	return ['guard']
+	    else:
+	        return ['move', available_zones.keys()[0]]
